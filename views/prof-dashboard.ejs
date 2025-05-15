@@ -1,0 +1,23 @@
+<!-- views/prof-dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Profissional - ConectGine</title>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <%- include('partials/nav-prof') %>
+    
+    <div class="container">
+        <h1>Bem-vindo(a), <%= professional.nome %></h1>
+        
+        <div class="dashboard-sections">
+            <!-- Seu conteúdo do dashboard aqui -->
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

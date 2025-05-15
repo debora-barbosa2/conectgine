@@ -1,0 +1,113 @@
+<!-- Página do Profissional - conectgine_profissional.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área Profissional - ConectGine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <!-- Barra de Navegação -->
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">
+      <i class="fas fa-venus"></i> ConectGine
+    </a>
+
+    <div class="navbar-menu">
+      <a href="/perfil_profissional" class="navbar-item active">
+        <i class="fas fa-user-md"></i> Minha Área
+      </a>
+      <a href="/agenda" class="navbar-item">
+        <i class="fas fa-calendar-alt"></i> Agenda
+      </a>
+      <a href="/pacientes" class="navbar-item">
+        <i class="fas fa-users"></i> Pacientes
+      </a>
+      <a href="/configuracoes" class="navbar-item">
+        <i class="fas fa-cogs"></i> Configurações
+      </a>
+      <a href="/logout_prof" class="navbar-item">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </a>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <section class="hero-section">
+      <img src="/image/hero-image.jpg" alt="Atendimento profissional" class="hero-image">
+      <div class="hero-overlay">
+        <h2>Bem-vinda à sua Área Profissional</h2>
+        <p>Acompanhe seus atendimentos, gerencie sua agenda e mantenha-se conectada com suas pacientes.</p>
+        <button class="hero-btn" onclick="window.location.href='/agenda'">
+          <i class="fas fa-calendar-check"></i> Ver Minha Agenda
+        </button>
+      </div>
+    </section>
+      <header>
+          <div class="header-container">
+              <div class="logo">
+                  <h1>ConectGine</h1>
+              </div>
+              <div class="user-info">
+                  <p>Bem-vindo, <strong><%= nome %></strong></p>
+                  <a href="/logout_prof" class="logout-btn">Sair</a>
+              </div>
+          </div>
+      </header>
+  
+      <!-- Painel de Ações -->
+      <div class="dashboard">
+          <div class="dashboard-card" onclick="window.location.href='/agenda'">
+              <i class="fas fa-calendar-day dashboard-icon"></i>
+              <h3>Agenda de Consultas</h3>
+              <p>Visualize e edite seus horários disponíveis.</p>
+          </div>
+  
+          <div class="dashboard-card" onclick="window.location.href='/pacientes'">
+              <i class="fas fa-user-friends dashboard-icon"></i>
+              <h3>Pacientes</h3>
+              <p>Veja suas pacientes e o histórico de atendimentos.</p>
+          </div>
+  
+          <div class="dashboard-card" onclick="window.location.href='/consultas'">
+              <i class="fas fa-notes-medical dashboard-icon"></i>
+              <h3>Consultas</h3>
+              <p>Acompanhe consultas passadas e futuras.</p>
+          </div>
+  
+          <div class="dashboard-card" onclick="window.location.href='/configuracoes'">
+              <i class="fas fa-sliders-h dashboard-icon"></i>
+              <h3>Configurações</h3>
+              <p>Atualize seu perfil, horários e preferências.</p>
+          </div>
+      </div>
+  
+  </body>
+  </html>
+  
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-logo">ConectGine</div>
+    <p class="footer-text">Cuidando de quem cuida. Espaço exclusivo para profissionais da saúde.</p>
+
+    <div class="footer-links">
+      <a href="/termos" class="footer-link">Termos de Uso</a>
+      <a href="/privacidade" class="footer-link">Política de Privacidade</a>
+      <a href="/contato" class="footer-link">Suporte Técnico</a>
+    </div>
+
+    <div class="social-links">
+      <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
+    <p class="footer-text">© <%= new Date().getFullYear() %> ConectGine. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

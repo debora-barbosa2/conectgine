@@ -1,0 +1,230 @@
+<!-- [CÓDIGO COMPLETO ABAIXO] -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login de Usuário - ConectGine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary-color: rgba(214, 51, 132, 0.8);
+      --secondary-color: rgba(214, 51, 132, 0.8);
+      --error-color: #f44336;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      margin: 2rem;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #777;
+    }
+
+    .form-actions {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0.5rem 0;
+    }
+
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .google-btn {
+      background-color: rgba(214, 51, 132, 0.8);
+    }
+
+    .google-btn:hover {
+      background-color: rgba(214, 51, 132, 0.8);
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #555;
+    }
+
+    .register-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .input-error {
+      border-color: var(--error-color);
+    }
+
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1><i class="fas fa-user"></i> Login de Usuário</h1>
+
+    <% if (error) { %>
+      <p class="error-message" style="color: red; text-align: center;"><%= error %></p>
+    <% } %>
+
+    <form id="loginForm" action="/login" method="POST">
+      <div class="input-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required />
+        <span class="error-message" id="email-error">Por favor, insira um e-mail válido</span>
+      </div>
+
+      <div class="input-group">
+        <label for="senha">Senha</label>
+        <div class="password-container">
+          <input type="password" id="senha" name="senha" required />
+          <i class="fas fa-eye toggle-password" id="toggleSenha"></i>
+        </div>
+        <span class="error-message" id="senha-error">Por favor, insira sua senha</span>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn">
+          <i class="fas fa-sign-in-alt"></i> Entrar
+        </button>
+        <a href="/auth/google" class="btn google-btn">
+          <i class="fab fa-google"></i> Entrar com Google
+        </a>
+      </div>
+    </form>
+
+    <div class="register-link">
+      <p>Não possui cadastro? <a href="/cadastro">Cadastre-se como usuário</a></p>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('toggleSenha').addEventListener('click', function () {
+        const senhaInput = document.getElementById('senha');
+        const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        senhaInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', function (e) {
+        let isValid = true;
+
+        const email = document.getElementById('email').value.trim();
+        const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showError('email-error', 'email');
+          isValid = false;
+        } else {
+          hideError('email-error', 'email');
+        }
+
+        const senha = document.getElementById('senha').value;
+        if (senha === '') {
+          showError('senha-error', 'senha');
+          isValid = false;
+        } else {
+          hideError('senha-error', 'senha');
+        }
+
+        if (!isValid) e.preventDefault();
+      });
+
+      function showError(errorId, inputId) {
+        document.getElementById(errorId).style.display = 'block';
+        document.getElementById(inputId).classList.add('input-error');
+      }
+
+      function hideError(errorId, inputId) {
+        document.getElementById(errorId).style.display = 'none';
+        document.getElementById(inputId).classList.remove('input-error');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title || 'ConectGine' %></title>
+    <link rel="stylesheet" href="/css/style.css">
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <i class="fas fa-venus"></i> ConectGine
+        </a>
+        
+        <div class="navbar-menu">
+            <a href="/" class="navbar-item <%= currentPath === '/' ? 'active' : '' %>">
+                <i class="fas fa-home"></i> Início
+            </a>
+            <a href="/quem-somos" class="navbar-item <%= currentPath === '/quem-somos' ? 'active' : '' %>">
+                <i class="fas fa-info-circle"></i> Quem Somos
+            </a>
+            <a href="/servicos" class="navbar-item <%= currentPath === '/servicos' ? 'active' : '' %>">
+                <i class="fas fa-procedures"></i> Serviços
+            </a>
+            <a href="/especialistas" class="navbar-item <%= currentPath === '/especialistas' ? 'active' : '' %>">
+                <i class="fas fa-user-md"></i> Especialistas
+            </a>
+            
+            <% if (user || professional) { %>
+    <a href="/perfil" class="navbar-item <%= currentPath === '/perfil' ? 'active' : '' %>">
+        <i class="fas fa-user"></i> Meu Perfil
+    </a>
+    <a href="<%= user ? '/logout' : '/logout_prof' %>" class="navbar-item">
+        <i class="fas fa-sign-out-alt"></i> Sair
+    </a>
+<% } else { %>
+    <a href="/login" class="navbar-item <%= currentPath === '/login' ? 'active' : '' %>">
+        <i class="fas fa-sign-in-alt"></i> Login
+    </a>
+    <a href="/cadastro" class="navbar-item <%= currentPath === '/cadastro' ? 'active' : '' %>">
+        <i class="fas fa-user-plus"></i> Cadastro
+    </a>
+    <a href="/login_prof" class="navbar-item profissional-btn <%= currentPath === '/login_prof' ? 'active' : '' %>">
+        <i class="fas fa-stethoscope"></i> Área Profissional
+    </a>
+<% } %>
+        </div>
+    </nav>

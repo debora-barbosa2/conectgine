@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro Profissional - ConectGine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    :root {
+      --primary-color: rgba(214, 51, 132, 0.8);
+      --secondary-color: rgba(214, 51, 132, 0.8);
+      --error-color: #f44336;
+      --success-color: #4caf50;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .cadastro-profissional-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      margin: 2rem;
+    }
+    
+    h1 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 500;
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border 0.3s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #777;
+    }
+    
+    .form-actions {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #555;
+    }
+    
+    .login-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    
+    .input-error {
+      border-color: var(--error-color);
+    }
+    
+    @media (max-width: 600px) {
+      .cadastro-profissional-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cadastro-profissional-container">
+    <h1><i class="fas fa-user-md"></i> Cadastro de Profissional</h1>
+    
+    <form id="cadastroForm" action="/cadastro_prof" method="POST">
+      <div class="input-group">
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="nome" name="nome" required>
+        <span class="error-message" id="nome-error">Por favor, insira seu nome completo</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="email">E-mail Profissional</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error-message" id="email-error">Por favor, insira um e-mail válido</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="senha">Senha</label>
+        <div class="password-container">
+          <input type="password" id="senha" name="senha" required minlength="8">
+          <i class="fas fa-eye toggle-password" id="toggleSenha"></i>
+        </div>
+        <span class="error-message" id="senha-error">A senha deve ter pelo menos 8 caracteres</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="confirma-senha">Confirmar Senha</label>
+        <div class="password-container">
+          <input type="password" id="confirma-senha" name="confirma-senha" required>
+          <i class="fas fa-eye toggle-password" id="toggleConfirmaSenha"></i>
+        </div>
+        <span class="error-message" id="confirma-senha-error">As senhas não coincidem</span>
+      </div>
+      
+      <div class="input-group">
+        <label for="especialidade">Especialidade</label>
+        <select id="especialidade" name="especialidade" required>
+          <option value="">Selecione sua especialidade</option>
+          <option value="Ginecologista">Ginecologista</option>
+          <option value="Obstetra">Obstetra</option>
+          <option value="Mastologista">Mastologista</option>
+          <option value="Endocrinologista">Endocrinologista</option>
+          <option value="Outra">Outra</option>
+        </select>
+        <span class="error-message" id="especialidade-error">Por favor, selecione uma especialidade</span>
+      </div>
+      
+      <div class="input-group" id="outra-especialidade-group" style="display: none;">
+        <label for="outra-especialidade">Informe sua especialidade</label>
+        <input type="text" id="outra-especialidade" name="outra-especialidade">
+      </div>
+      
+      <div class="input-group">
+        <label for="crm">Registro Profissional (CRM/COREN)</label>
+        <input type="text" id="crm" name="crm" required>
+        <span class="error-message" id="crm-error">Por favor, informe seu registro profissional</span>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn">
+          <i class="fas fa-user-plus"></i> Cadastrar Profissional
+        </button>
+      </div>
+    </form>
+    
+    <p class="login-link">Já possui cadastro? <a href="/login_prof">Faça login aqui</a></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mostrar/ocultar senha
+      document.getElementById('toggleSenha').addEventListener('click', function() {
+        const senhaInput = document.getElementById('senha');
+        const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        senhaInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+      });
+      
+      document.getElementById('toggleConfirmaSenha').addEventListener('click', function() {
+        const confirmaSenhaInput = document.getElementById('confirma-senha');
+        const type = confirmaSenhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmaSenhaInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+      });
+      
+      // Mostrar campo "Outra especialidade" quando selecionado
+      document.getElementById('especialidade').addEventListener('change', function() {
+        const outraEspecialidadeGroup = document.getElementById('outra-especialidade-group');
+        outraEspecialidadeGroup.style.display = this.value === 'Outra' ? 'block' : 'none';
+      });
+      
+      // Validação do formulário
+      document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+        let isValid = true;
+        
+        // Validação do nome
+        const nome = document.getElementById('nome').value.trim();
+        if (nome === '') {
+          showError('nome-error', 'nome');
+          isValid = false;
+        } else {
+          hideError('nome-error', 'nome');
+        }
+        
+        // Validação do email
+        const email = document.getElementById('email').value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showError('email-error', 'email');
+          isValid = false;
+        } else {
+          hideError('email-error', 'email');
+        }
+        
+        // Validação da senha
+        const senha = document.getElementById('senha').value;
+        if (senha.length < 8) {
+          showError('senha-error', 'senha');
+          isValid = false;
+        } else {
+          hideError('senha-error', 'senha');
+        }
+        
+        // Validação de confirmação de senha
+        const confirmaSenha = document.getElementById('confirma-senha').value;
+        if (confirmaSenha !== senha) {
+          showError('confirma-senha-error', 'confirma-senha');
+          isValid = false;
+        } else {
+          hideError('confirma-senha-error', 'confirma-senha');
+        }
+        
+        // Validação da especialidade
+        const especialidade = document.getElementById('especialidade').value;
+        if (especialidade === '') {
+          showError('especialidade-error', 'especialidade');
+          isValid = false;
+        } else {
+          hideError('especialidade-error', 'especialidade');
+        }
+        
+        // Validação do CRM
+        const crm = document.getElementById('crm').value.trim();
+        if (crm === '') {
+          showError('crm-error', 'crm');
+          isValid = false;
+        } else {
+          hideError('crm-error', 'crm');
+        }
+        
+        if (!isValid) {
+          e.preventDefault();
+        }
+      });
+      
+      function showError(errorId, inputId) {
+        document.getElementById(errorId).style.display = 'block';
+        document.getElementById(inputId).classList.add('input-error');
+      }
+      
+      function hideError(errorId, inputId) {
+        document.getElementById(errorId).style.display = 'none';
+        document.getElementById(inputId).classList.remove('input-error');
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agende sua Consulta - ConectGine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <i class="fas fa-venus"></i> ConectGine
+        </a>
+        
+        <div class="navbar-menu">
+            <a href="/" class="navbar-item <%= currentPath === '/' ? 'active' : '' %>">
+                <i class="fas fa-home"></i> Início
+            </a>
+            <a href="/quem-somos" class="navbar-item <%= currentPath === '/quem-somos' ? 'active' : '' %>">
+                <i class="fas fa-info-circle"></i> Quem Somos
+            </a>
+            <a href="/servicos" class="navbar-item <%= currentPath === '/servicos' ? 'active' : '' %>">
+                <i class="fas fa-procedures"></i> Serviços
+            </a>
+            <a href="/especialistas" class="navbar-item <%= currentPath === '/especialistas' ? 'active' : '' %>">
+                <i class="fas fa-user-md"></i> Especialistas
+            </a>
+            
+            <% if (user || professional) { %>
+                <a href="/perfil" class="navbar-item <%= currentPath === '/perfil' ? 'active' : '' %>">
+                    <i class="fas fa-user"></i> Meu Perfil
+                </a>
+                <a href="<%= user ? '/logout' : '/logout_prof' %>" class="navbar-item">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+            <% } else { %>
+                <a href="/login" class="navbar-item <%= currentPath === '/login' ? 'active' : '' %>">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="/cadastro" class="navbar-item <%= currentPath === '/cadastro' ? 'active' : '' %>">
+                    <i class="fas fa-user-plus"></i> Cadastro
+                </a>
+                <a href="/login_prof" class="navbar-item profissional-btn <%= currentPath === '/login_prof' ? 'active' : '' %>">
+                    <i class="fas fa-stethoscope"></i> Área Profissional
+                </a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <section class="hero-section">
+            <img src="/image/hero-image.jpg" alt="Atendimento ginecológico acolhedor" class="hero-image">
+            <div class="hero-overlay">
+                <h2>Cuidados femininos com excelência e acolhimento</h2>
+                <p>Na ConectGine, sua saúde e bem-estar são nossa prioridade. Agende sua consulta com nossas especialistas.</p>
+                <button class="hero-btn">
+                    <i class="fas fa-phone-alt"></i> Agende sua Consulta
+                </button>
+            </div>
+        </section>
+        
+        <!-- Seção de Boas-Vindas --> 
+        <% if (user || professional) { 
+            let nome = (user && user.nome) || (professional && professional.nome) || ''; 
+       %>
+           <section class="welcome-section">
+               <div class="welcome-content">
+                   <div class="user-avatar">
+                       <%= nome.charAt(0).toUpperCase() %>
+                   </div>
+                   <h2 class="welcome-message">Olá, <%= nome %>!</h2>
+               </div>
+               <a href="<%= user ? '/logout' : '/logout_prof' %>" class="logout-btn">
+                   <i class="fas fa-sign-out-alt"></i> Sair da conta
+               </a>
+           </section>
+       <% } %>
+
+        <!-- Conteúdo Principal -->
+        <h1 class="main-title">Agende sua Consulta</h1>
+        <p class="description">Escolha a especialidade e agende o melhor horário para sua consulta. Oferecemos um ambiente acolhedor e profissionais especializadas para cuidar de você em todas as fases da vida.</p>
+
+        <!-- Navegação de Serviços -->
+        <div class="services-nav">
+            <a href="#agendamento_online" class="nav-item active">
+                <i class="fas fa-calendar-check"></i> Agendar Consulta
+            </a>
+            <a href="/servicos" class="nav-item">
+                <i class="fas fa-procedures"></i> Nossos Serviços
+            </a>
+            <a href="/especialistas" class="nav-item">
+                <i class="fas fa-user-md"></i> Especialistas
+            </a>
+            <a href="/localizacao" class="nav-item">
+                <i class="fas fa-map-marker-alt"></i> Localização
+            </a>
+        </div>
+
+        <!-- Card de Agendamento -->
+        <div class="appointment-card">
+            <div class="card-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3 class="card-title" id="agendamento_online">Agendamento Online</h3>
+            <p class="card-text">Conheça nossas especialistas e agende seu horário de forma rápida e segura. Temos disponibilidade para consultas presenciais e telemedicina.</p>
+            <% if (user || professional) { %>
+                <button class="appointment-btn" onclick="window.location.href='/agendar'">
+                    <i class="fas fa-check"></i> Agendar Agora
+                </button>
+            <% } else { %>
+                <button class="appointment-btn" onclick="window.location.href='/login'">
+                    <i class="fas fa-sign-in-alt"></i> Faça login para agendar
+                </button>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-logo">ConectGine</div>
+        <p class="footer-text">Ajudando na saúde íntima de Meninas e mulheres desde 2025.</p>
+        
+        <div class="footer-links">
+            <a href="/quem-somos" class="footer-link">Sobre Nós</a>
+            <a href="/termos" class="footer-link">Termos de Uso</a>
+            <a href="/privacidade" class="footer-link">Política de Privacidade</a>
+            <a href="/contato" class="footer-link">Contato</a>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        
+        <p class="footer-text">© <%= new Date().getFullYear() %> ConectGine. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
