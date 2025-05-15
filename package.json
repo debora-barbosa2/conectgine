@@ -1,4 +1,12 @@
-{
+
+ {
+  "name": "conectgine",
+  "version": "1.0.0",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "crypto": "^1.0.1",
@@ -16,12 +24,6 @@
     "passport-google-oauth20": "^2.0.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
-  },
-  "name": "conectgine",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
