@@ -1,0 +1,29 @@
+/* Estilos da página de agendamento */
+.container {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.select-profissional {
+  margin: 12px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.select-profissional label {
+  font-weight: 600;
+}
+
+.select-profissional select {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+#calendar {
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
