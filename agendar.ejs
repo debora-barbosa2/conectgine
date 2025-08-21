@@ -1,0 +1,28 @@
+<%- include('partials/header', { title: 'Agende sua consulta' }) %>
+
+<div class="container">
+  <h2>Agende sua consulta</h2>
+
+  <!-- Dropdown para escolher profissional -->
+  <div class="select-profissional">
+    <label for="profissional">Escolha o profissional:</label>
+    <select id="profissional">
+      <option value="">Carregando...</option>
+    </select>
+  </div>
+
+  <!-- Calendário -->
+  <div id="calendar"></div>
+</div>
+
+<!-- FullCalendar CDN -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+<!-- CSS customizado -->
+<link rel="stylesheet" href="/css/fullcalendar.css">
+
+<!-- Script separado -->
+<script src="/js/fullcalendar.js"></script>
+
+<%- include('partials/footer') %>
