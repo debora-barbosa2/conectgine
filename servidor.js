@@ -104,6 +104,41 @@ app.get('/quem-somos', (req, res) => res.render('quem-somos', { title: 'Quem Som
 app.get('/servicos', (req, res) => res.render('servicos', { title: 'Serviços' }));
 app.get('/especialistas', (req, res) => res.render('especialistas', { title: 'Especialistas' }));
 
+// Página de agendamento (requer login)
+app.get('/agendar', requireAuth, (req, res) => {
+    res.render('agendar', { title: 'Agende sua consulta' });
+});
+
+// APIs para o FullCalendar
+app.get('/api/profissionais', (req, res) => {
+    db.query('SELECT id, nome_completo AS nome, especialidade FROM profissional ORDER BY nome_completo', (err, results) => {
+        if (err) return res.status(500).json([]);
+        res.json(results);
+    });
+});
+
+app.get('/api/agendamentos', (req, res) => {
+    const { profissionalId, start, end } = req.query;
+    if (!profissionalId || !start || !end) {
+        return res.json([]);
+    }
+    const sql = `
+        SELECT 
+            a.id,
+            a.inicio AS start,
+            a.fim AS end,
+            CONCAT('Consulta ', u.nome) AS title
+        FROM agendamento a
+        JOIN usuario u ON u.id = a.usuario_id
+        WHERE a.profissional_id = ? AND a.inicio >= ? AND a.fim <= ?
+        ORDER BY a.inicio
+    `;
+    db.query(sql, [profissionalId, start, end], (err, results) => {
+        if (err) return res.status(500).json([]);
+        res.json(results);
+    });
+});
+
 // Login com Google
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
